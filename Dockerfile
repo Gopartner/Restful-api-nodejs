@@ -1,18 +1,27 @@
-FROM node:22-slim
+# Gunakan base image Node.js
+FROM node:22
 
+# Install ngrok dan alat bantu
+RUN apt update && apt install -y curl unzip
+
+# Install ngrok dari repository resmi
+RUN curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null \
+ && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | tee /etc/apt/sources.list.d/ngrok.list \
+ && apt update && apt install -y ngrok
+
+# Set direktori kerja
 WORKDIR /app
 
-COPY package*.json ./
+# Copy semua isi project ke container
+COPY . .
+
+# Install dependency node
 RUN npm install
 
-COPY app ./app
-COPY .env .env
+# Copy dan beri izin untuk script start
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
-EXPOSE 8000
-CMD ["node", "app/server.js"]
+# Jalankan script start saat container dijalankan
+CMD ["./start.sh"]
 
-# Build dan Jalankan Docker
-# docker build -t restful-ai .
-# docker run -d -p 8000:8000 --name ai-api-node restful-ai
-
-# =====================================================================
