@@ -1,0 +1,21 @@
+{
+  "name": "restful-api-nodejs",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node app/server.js"
+  },
+  "keywords": [
+    "AI"
+  ],
+  "author": "yudibilly",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@huggingface/inference": "^4.4.0",
+    "axios": "^1.10.0",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0"
+  }
+}
