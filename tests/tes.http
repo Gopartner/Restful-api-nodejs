@@ -1,0 +1,39 @@
+# Tes GET Home
+GET http://localhost:8000/
+
+###
+
+# Tes GET Ping
+GET http://localhost:8000/ping
+
+###
+
+# Tes POST Login
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+  "name": "yudibilly"
+}
+
+###
+
+# Tes POST /ask tanpa token
+POST http://localhost:8000/ask
+Content-Type: application/json
+
+{
+  "prompt": "Jelaskan AI dengan singkat"
+}
+
+###
+
+# Ganti TOKEN di sini sebelum tes /ask pakai login
+# Copy token hasil dari POST /login
+POST http://localhost:8000/ask
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoieXVkaWJpbGx5IiwiaWF0IjoxNzUyMjM3NTcxLCJleHAiOjE3NTIyNDQ3NzF9.kodcOV_hFb1_DM_QUwnLBfTgykM9JJJIlGOkf4xdI-g
+
+{
+  "prompt": "Apa itu NodeJS?"
+}

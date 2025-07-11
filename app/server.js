@@ -1,35 +1,29 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { InferenceClient } from '@huggingface/inference';
+import cors from 'cors';
+import morgan from 'morgan';
+
+import apiRoutes from './routes/apiRoutes.js';
 
 dotenv.config();
 const app = express();
+
+// Middleware global
+app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'));
 
-const client = new InferenceClient(process.env.HF_TOKEN);
+// Routing
+app.use('/', apiRoutes);
 
-app.post('/ask', async (req, res) => {
-  const { prompt } = req.body;
-
-  try {
-    const chatCompletion = await client.chatCompletion({
-      provider: "fireworks-ai",
-      model: "deepseek-ai/DeepSeek-V3",
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-    });
-
-    res.json(chatCompletion.choices[0].message);
-  } catch (error) {
-    console.error("Error from HF:", error);
-    res.status(500).json({ error: 'API call failed', detail: error.message });
-  }
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('🔥 Internal Server Error:', err);
+  res.status(500).json({ error: 'Terjadi kesalahan di server' });
 });
 
-app.listen(8000, () => {
-  console.log('Server running on http://localhost:8000');
+// Start server
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
 });

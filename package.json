@@ -1,21 +1,36 @@
 {
   "name": "restful-api-nodejs",
   "version": "1.0.0",
-  "type": "module",
+  "description": "RESTful API AI dengan Hugging Face + Express",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start": "node app/server.js"
+    "start": "node app/server.js",
+    "dev": "nodemon app/server.js",
+    "docker": "docker build -t restful-api-nodejs . && docker run -p 8000:8000 restful-api-nodejs"
   },
   "keywords": [
-    "AI"
+    "AI",
+    "huggingface",
+    "express",
+    "restful",
+    "ngrok",
+    "nodejs",
+    "api"
   ],
   "author": "yudibilly",
-  "license": "ISC",
-  "description": "",
+  "license": "MIT",
   "dependencies": {
     "@huggingface/inference": "^4.4.0",
     "axios": "^1.10.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
 }
